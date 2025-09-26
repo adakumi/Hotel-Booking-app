@@ -1,0 +1,7 @@
+    .modal-content {
+      border: none;
+      border-radius: 15px;
+    }
+    .modal-header {
+      border-radius: 15px 15px 0 0;
+    }

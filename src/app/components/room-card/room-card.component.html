@@ -1,0 +1,59 @@
+<div class="room-card card h-100 shadow-sm custom-room-card">
+  <!-- Room Image -->
+  <div class="room-image-container">
+    <img [src]="room.image" [alt]="'Room ' + room.name" class="room-image">
+    <span class="room-badge" [ngClass]="room.available ? 'available' : 'booked'">
+      {{ room.available ? 'Available' : 'Booked' }}
+    </span>
+  </div>
+
+  <div class="card-body d-flex flex-column">
+    <!-- Room Header -->
+    <div class="room-header mb-3">
+      <h5 class="room-title mb-1">Room {{ room.name }}</h5>
+      <span class="room-type-badge">{{ room.type }} Room</span>
+    </div>
+
+    <!-- Room Description -->
+    <p class="room-description mb-3">{{ room.description }}</p>
+
+    <!-- Room Amenities -->
+    <div class="room-amenities mb-3">
+      <h6 class="amenities-title">Amenities:</h6>
+      <div class="amenities-list">
+        <span class="amenity-badge" *ngFor="let amenity of room.amenities.slice(0, 3)">{{ amenity }}</span>
+        <span class="amenity-badge-more" *ngIf="room.amenities.length > 3">
+          +{{ room.amenities.length - 3 }} more
+        </span>
+      </div>
+    </div>
+
+    <!-- Room Details -->
+    <div class="room-details mb-3">
+      <div class="detail-item">
+        <i class="fas fa-user text-muted me-2"></i>
+        <small>{{ getGuestCapacity(room.type) }}</small>
+      </div>
+      <div class="detail-item">
+        <i class="fas fa-expand text-muted me-2"></i>
+        <small>{{ getRoomSize(room.type) }}</small>
+      </div>
+    </div>
+
+    <!-- Price and Book Button -->
+    <div class="room-footer mt-auto">
+      <div class="price-section mb-3">
+        <h4 class="room-price">RM{{ room.price }}<small class="text-muted">/night</small></h4>
+      </div>
+      
+      <button 
+        class="btn book-btn w-100" 
+        [ngClass]="room.available ? 'btn-primary' : 'btn-secondary'"
+        (click)="onBookRoom()"
+        [disabled]="!room.available">
+        <i class="fas fa-calendar-check me-2"></i>
+        {{ room.available ? 'Book Now' : 'Unavailable' }}
+      </button>
+    </div>
+  </div>
+</div>

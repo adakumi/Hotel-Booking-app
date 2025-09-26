@@ -1,0 +1,307 @@
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar py-3">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <h2 class="logo-title mb-0 fs-2 fw-bold">Luxury Hotel</h2>
+    </a>
+    
+    <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link custom-nav-link" href="#about">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link custom-nav-link" (click)="navigateToRooms()" style="cursor: pointer;">Rooms</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link custom-nav-link" href="#amenities">Amenities</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link custom-nav-link" href="#gallery">Gallery</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link custom-nav-link" href="#contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="hero" class="hero-section custom-hero text-white py-5">
+  <div class="container">
+    <div class="row align-items-center min-vh-50">
+      <div class="col-12 text-center">
+        <div class="mb-5">
+          <h1 class="display-3 fw-bold mb-3 custom-title">Welcome</h1>
+          <p class="lead fs-3 custom-subtitle">Experience unparalleled comfort and luxury</p>
+        </div>
+      </div>
+    </div>
+  </div> 
+</section>  
+
+<!-- About Section with Slideshow Background -->
+<section id="about" class="about-section py-5 custom-about-slideshow">
+  <div class="slideshow-container">
+    <!-- Slide 1 -->
+    <div class="slide slide-active" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');"></div>
+    
+    <!-- Slide 2 -->
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');"></div>
+    
+    <!-- Slide 3 -->
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');"></div>
+    
+    <!-- Slideshow Overlay -->
+    <div class="slideshow-overlay"></div>
+  </div>
+
+  <div class="container position-relative z-2">
+    <div class="row align-items-center">
+<!-- Find a Room Box -->
+<div class="col-lg-5 mb-4 mb-lg-0">
+  <div class="booking-box p-4 rounded custom-booking-shadow">
+    <h3 class="text-center mb-4 booking-title">
+      <i class="fas me-2"></i>Check Availability
+    </h3>
+    
+    <form [formGroup]="bookingForm" class="booking-form" (ngSubmit)="onCheckAvailability()">
+      <div class="mb-3">
+        <label class="form-label booking-label">Check-in Date <span class="text-danger">*</span></label>
+        <input type="date" 
+               class="form-control booking-input" 
+               formControlName="checkIn"
+               [class.is-invalid]="bookingForm.get('checkIn')?.invalid && bookingForm.get('checkIn')?.touched"
+               [min]="minDate">
+        <div class="invalid-feedback" *ngIf="bookingForm.get('checkIn')?.errors?.['required']">
+          Please select check-in date
+        </div>
+        <div class="invalid-feedback" *ngIf="bookingForm.get('checkIn')?.errors?.['invalidDate']">
+          Check-in date cannot be in the past
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label booking-label">Check-out Date <span class="text-danger">*</span></label>
+        <input type="date" 
+               class="form-control booking-input" 
+               formControlName="checkOut"
+               [class.is-invalid]="bookingForm.get('checkOut')?.invalid && bookingForm.get('checkOut')?.touched"
+               [min]="minDate">
+        <div class="invalid-feedback" *ngIf="bookingForm.get('checkOut')?.errors?.['required']">
+          Please select check-out date
+        </div>
+        <div class="invalid-feedback" *ngIf="bookingForm.get('checkOut')?.errors?.['invalidDate']">
+          Check-out date must be after check-in date
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label booking-label">Guests</label>
+        <select class="form-select booking-input" formControlName="guests">
+          <option value="1">1 Guest</option>
+          <option value="2">2 Guests</option>
+          <option value="3">3 Guests</option>
+          <option value="4">4 Guests</option>
+          <option value="5">5+ Guests</option>
+        </select>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label booking-label">Room Type</label>
+        <select class="form-select booking-input" formControlName="roomType">
+          <option value="single">Single Room</option>
+          <option value="double">Double Room</option>
+          <option value="suite">Suite</option>
+          <option value="deluxe">Deluxe Suite</option>
+        </select>
+      </div>
+      
+      <button type="submit" 
+              class="btn booking-btn w-100 py-3" 
+              [disabled]="bookingForm.invalid">
+        <i class="fas me-2"></i>Find Available Rooms
+      </button>
+      
+      <div class="text-center mt-3">
+        <small class="text-muted">Best rates guaranteed • Free cancellation</small>
+      </div>
+    </form>
+  </div>
+</div>
+
+      <div class="col-lg-6 offset-lg-1">
+        <div class="about-content text-white">
+          <h2 class="section-title mb-4 custom-section-title-white">Why Choose Our Hotel</h2>
+          
+          <div class="feature-item custom-feature-item-white mb-4">
+            <h4 class="custom-feature-heading-white mb-2">
+              <i class="fas me-2"></i>Premium Luxury Experience
+            </h4>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <i class="fas custom-check-icon-white me-2"></i>
+                World-class amenities and exceptional service
+              </li>
+            </ul>
+          </div>
+
+          <div class="feature-item custom-feature-item-white mb-4">
+            <h4 class="custom-feature-heading-white mb-2">
+              <i class="fas me-2"></i>Personalized Service
+            </h4>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <i class="fas custom-check-icon-white me-2"></i>
+                Dedicated concierge service throughout your stay
+              </li>
+            </ul>
+          </div>
+
+          <div class="feature-item custom-feature-item-white mb-4">
+            <h4 class="custom-feature-heading-white mb-2">
+              <i class="fas me-2"></i>Safety & Privacy
+            </h4>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <i class="fas custom-check-icon-white me-2"></i>
+                24/7 security and complete privacy for all guests
+              </li>
+            </ul>
+          </div>
+
+          <div class="feature-item custom-feature-item-white mb-4">
+            <h4 class="custom-feature-heading-white mb-2">
+              <i class="fas me-2"></i>Quick & Efficient
+            </h4>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <i class="fas custom-check-icon-white me-2"></i>
+                Fast check-in process and immediate room availability
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Amenities Section -->
+<section id="amenities" class="amenities-section py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        <h2 class="display-4 fw-bold custom-amenities-title">Hotel Amenities</h2>
+        <p class="lead text-muted">Discover our world-class facilities and services</p>
+      </div>
+    </div>
+
+    <!-- Row 1 -->
+    <div class="row g-4 mb-5">
+      <div class="col-md-4">
+        <div class="amenity-card text-center p-4 rounded shadow-sm h-100">
+          <div class="amenity-icon mb-3">
+            <i class="fas fa-3x text-primary"></i>
+          </div>
+          <h4 class="amenity-name mb-3">Infinity Pool</h4>
+          <p class="amenity-description">Stunning outdoor infinity pool with panoramic city views and poolside service</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="amenity-card text-center p-4 rounded shadow-sm h-100">
+          <div class="amenity-icon mb-3">
+            <i class="fas fa-3x text-primary"></i>
+          </div>
+          <h4 class="amenity-name mb-3">Luxury Spa</h4>
+          <p class="amenity-description">Full-service spa offering massages, treatments, and wellness therapies</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="amenity-card text-center p-4 rounded shadow-sm h-100">
+          <div class="amenity-icon mb-3">
+            <i class="fas fa-3x text-primary"></i>
+          </div>
+          <h4 class="amenity-name mb-3">Fitness Center</h4>
+          <p class="amenity-description">State-of-the-art gym with personal trainers and fitness classes</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="row g-4 mb-5">
+      <div class="col-md-4">
+        <div class="amenity-card text-center p-4 rounded shadow-sm h-100">
+          <div class="amenity-icon mb-3">
+            <i class="fas fa-3x text-primary"></i>
+          </div>
+          <h4 class="amenity-name mb-3">Fine Dining</h4>
+          <p class="amenity-description">Award-winning restaurants with international and local cuisine</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="amenity-card text-center p-4 rounded shadow-sm h-100">
+          <div class="amenity-icon mb-3">
+            <i class="fas fa-3x text-primary"></i>
+          </div>
+          <h4 class="amenity-name mb-3">High-Speed WiFi</h4>
+          <p class="amenity-description">Complimentary high-speed internet throughout the hotel</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="amenity-card text-center p-4 rounded shadow-sm h-100">
+          <div class="amenity-icon mb-3">
+            <i class="fas fa-3x text-primary"></i>
+          </div>
+          <h4 class="amenity-name mb-3">24/7 Concierge</h4>
+          <p class="amenity-description">Round-the-clock concierge service for all your needs</p>
+        </div>
+      </div>
+    </div>
+
+ 
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact-section py-5 custom-contact">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        <h2 class="display-6 fw-bold custom-contact-title" style="font-style: italic;">Contact Information</h2>
+        <p class="lead custom-contact-subtitle">Get in touch with us for reservations</p>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-4 text-center mb-4">
+        <div class="contact-item p-4 custom-contact-card rounded">
+          <i class="fasmb-3 custom-contact-icon"></i>
+          <h5 class="custom-contact-item-title">Address</h5>
+          <p class="mb-0 custom-contact-text">123 Luxury Jonker Street, Melaka</p>
+        </div>
+      </div>
+      <div class="col-md-4 text-center mb-4">
+        <div class="contact-item p-4 custom-contact-card rounded">
+          <i class="fasmb-3 custom-contact-icon"></i>
+          <h5 class="custom-contact-item-title">Phone</h5>
+          <p class="mb-0 custom-contact-text">+6017-4191003</p>
+        </div>
+      </div>
+      <div class="col-md-4 text-center mb-4">
+        <div class="contact-item p-4 custom-contact-card rounded">
+          <i class="fasmb-3 custom-contact-icon"></i>
+          <h5 class="custom-contact-item-title">Email</h5>
+          <p class="mb-0 custom-contact-text">adib@luxuryhotel.com</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
