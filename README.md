@@ -87,8 +87,8 @@ Angular CLI (version 17+)
     
   1. Clone the repository 
     
-    git clone https://github.com/adakumi/Hotel-Booking-Engine/blob/main/README.md
-    cd hotel-booking-engine
+    git clone https://github.com/adakumi/Hotel-Booking-App.git
+    cd Hotel-Booking-App
   
   2. Install dependencies
    
